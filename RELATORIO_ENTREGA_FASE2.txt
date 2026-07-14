@@ -1,0 +1,150 @@
+RELATORIO DE ENTREGA - TECH CHALLENGE FASE 2
+FIAP CLOUD GAMES (FCG)
+
+Data de referencia: 2026-07-14
+Branch de referencia: master
+
+1. NOME DO GRUPO
+
+CMB Angello
+
+2. PARTICIPANTES E USERNAMES NO DISCORD
+
+- Chrystiano Angello Goncalves Mendes - Discord: .chrystiano
+
+3. DESCRICAO RESUMIDA DA ENTREGA
+
+O projeto entregue nesta fase refatora o MVP da Fase 1 para uma arquitetura de microsservicos orientada a eventos.
+
+Escopo coberto:
+
+- separacao da aplicacao em quatro microsservicos
+- UsersAPI para cadastro, autenticacao e JWT
+- CatalogAPI para catalogo, biblioteca e inicio de compra
+- PaymentsAPI para processamento simulado de pagamento
+- NotificationsAPI para simulacao de notificacoes por log
+- comunicacao assincrona com RabbitMQ e MassTransit
+- eventos UserCreatedEvent, OrderPlacedEvent e PaymentProcessedEvent
+- Dockerfile multi-stage em cada microsservico
+- orquestracao local com Docker Compose
+- manifests Kubernetes com Deployments, Services, ConfigMaps, Secrets e PVCs
+- execucao local em Kubernetes com Kind
+- health checks por API
+- validacao do fluxo completo de cadastro, compra, pagamento e biblioteca
+- documentacao tecnica de arquitetura e eventos
+
+4. LINK DA DOCUMENTACAO
+
+README do repositorio de orquestracao:
+https://github.com/Chrystiano22/fcg-orchestration/blob/master/README.md
+
+Documentacao de arquitetura:
+https://github.com/Chrystiano22/fcg-orchestration/blob/master/docs/arquitetura.md
+
+Documentacao de eventos:
+https://github.com/Chrystiano22/fcg-orchestration/blob/master/docs/eventos.md
+
+5. LINK DO(S) REPOSITORIO(S)
+
+Repositorio principal/documentacao:
+https://github.com/Chrystiano22/Fcg
+
+UsersAPI:
+https://github.com/Chrystiano22/fcg-users-api
+
+CatalogAPI:
+https://github.com/Chrystiano22/fcg-catalog-api
+
+PaymentsAPI:
+https://github.com/Chrystiano22/fcg-payments-api
+
+NotificationsAPI:
+https://github.com/Chrystiano22/fcg-notifications-api
+
+Repositorio de orquestracao:
+https://github.com/Chrystiano22/fcg-orchestration
+
+Branches utilizadas para a Fase 2:
+
+- https://github.com/Chrystiano22/Fcg/tree/master
+- https://github.com/Chrystiano22/fcg-users-api/tree/master
+- https://github.com/Chrystiano22/fcg-catalog-api/tree/master
+- https://github.com/Chrystiano22/fcg-payments-api/tree/master
+- https://github.com/Chrystiano22/fcg-notifications-api/tree/master
+- https://github.com/Chrystiano22/fcg-orchestration/tree/master
+
+6. LINK DO VIDEO
+
+https://www.youtube.com/watch?v=nNG5WRhAaVA
+
+7. ARQUIVOS DE APOIO DA ENTREGA
+
+Repositorio de orquestracao:
+C:\Users\Chrys\source\repos\fcg-orchestration
+
+Docker Compose:
+C:\Users\Chrys\source\repos\fcg-orchestration\compose\docker-compose.yml
+
+Manifests Kubernetes:
+C:\Users\Chrys\source\repos\fcg-orchestration\k8s
+
+Documentacao de arquitetura:
+C:\Users\Chrys\source\repos\fcg-orchestration\docs\arquitetura.md
+
+Documentacao de eventos:
+C:\Users\Chrys\source\repos\fcg-orchestration\docs\eventos.md
+
+Relatorio de entrega:
+C:\Users\Chrys\source\repos\fcg-orchestration\RELATORIO_ENTREGA_FASE2.txt
+
+8. VALIDACAO FINAL ANTES DA SUBMISSAO
+
+Antes de enviar, revisar:
+
+- nome do grupo preenchido
+- participantes preenchidos
+- usernames do Discord preenchidos
+- link do video preenchido
+- links dos repositorios acessiveis
+- links da documentacao acessiveis
+- video com no maximo 20 minutos
+- Docker Compose subindo as quatro APIs e o RabbitMQ
+- health checks das quatro APIs retornando HTTP 200
+- fluxo de cadastro e compra demonstrado
+- RabbitMQ exibindo filas com consumidores ativos
+- Kubernetes demonstrado com pods em estado Running
+- README atualizado
+
+9. RESUMO DA VALIDACAO TECNICA
+
+Docker Compose:
+
+- comando utilizado: docker compose -f compose\docker-compose.yml up --build -d
+- UsersAPI validada em http://localhost:5101/health
+- CatalogAPI validada em http://localhost:5102/health
+- PaymentsAPI validada em http://localhost:5103/health
+- NotificationsAPI validada em http://localhost:5104/health
+- RabbitMQ Management validado em http://localhost:15672
+
+Kubernetes:
+
+- cluster local criado com Kind
+- manifests aplicados com kubectl apply -k k8s
+- pods validados no namespace fcg
+- services e PVCs validados
+- health checks validados via NodePort
+- RabbitMQ validado dentro do cluster
+
+Fluxo de eventos:
+
+- UsersAPI publica UserCreatedEvent
+- NotificationsAPI consome UserCreatedEvent
+- CatalogAPI publica OrderPlacedEvent
+- PaymentsAPI consome OrderPlacedEvent
+- PaymentsAPI publica PaymentProcessedEvent
+- CatalogAPI consome PaymentProcessedEvent
+- NotificationsAPI consome PaymentProcessedEvent
+
+10. OBSERVACAO FINAL
+
+Este arquivo foi preparado como relatorio final de entrega exigido pela Fase 2.

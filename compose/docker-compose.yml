@@ -1,0 +1,117 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  users-api:
+    build:
+      context: ../../fcg-users-api
+      dockerfile: Dockerfile
+    ports:
+      - "5101:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      Service__Name: UsersAPI
+      RabbitMq__Enabled: "true"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__VirtualHost: /
+      RabbitMq__Username: guest
+      RabbitMq__Password: guest
+      ConnectionStrings__UsersDb: Data Source=/app/data/users.db
+      Database__Provider: Sqlite
+      Database__ConnectionString: Data Source=/app/data/users.db
+      Jwt__Issuer: fcg-users-api
+      Jwt__Audience: fcg-services
+      Jwt__SecretKey: development-secret-key-change-before-production
+      Jwt__ExpirationInMinutes: "60"
+      SeedData__Admin__Enabled: "true"
+      SeedData__Admin__Name: FCG Admin
+      SeedData__Admin__Email: admin@fcg.local
+      SeedData__Admin__Password: Admin@123
+    volumes:
+      - users-data:/app/data
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  catalog-api:
+    build:
+      context: ../../fcg-catalog-api
+      dockerfile: Dockerfile
+    ports:
+      - "5102:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      Service__Name: CatalogAPI
+      RabbitMq__Enabled: "true"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__VirtualHost: /
+      RabbitMq__Username: guest
+      RabbitMq__Password: guest
+      ConnectionStrings__CatalogDb: Data Source=/app/data/catalog.db
+      Database__Provider: Sqlite
+      Database__ConnectionString: Data Source=/app/data/catalog.db
+      Jwt__Issuer: fcg-users-api
+      Jwt__Audience: fcg-services
+      Jwt__SecretKey: development-secret-key-change-before-production
+    volumes:
+      - catalog-data:/app/data
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  payments-api:
+    build:
+      context: ../../fcg-payments-api
+      dockerfile: Dockerfile
+    ports:
+      - "5103:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      Service__Name: PaymentsAPI
+      RabbitMq__Enabled: "true"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__VirtualHost: /
+      RabbitMq__Username: guest
+      RabbitMq__Password: guest
+      PaymentSimulation__DefaultStatus: Approved
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  notifications-api:
+    build:
+      context: ../../fcg-notifications-api
+      dockerfile: Dockerfile
+    ports:
+      - "5104:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      Service__Name: NotificationsAPI
+      RabbitMq__Enabled: "true"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__VirtualHost: /
+      RabbitMq__Username: guest
+      RabbitMq__Password: guest
+      Notifications__FromEmail: no-reply@fcg.local
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+volumes:
+  users-data:
+  catalog-data:

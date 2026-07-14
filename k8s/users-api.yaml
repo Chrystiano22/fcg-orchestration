@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-api
+  namespace: fcg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      labels:
+        app: users-api
+    spec:
+      containers:
+        - name: users-api
+          image: compose-users-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fcg-common-config
+          env:
+            - name: Service__Name
+              value: UsersAPI
+            - name: ConnectionStrings__UsersDb
+              value: Data Source=/app/data/users.db
+            - name: Database__Provider
+              value: Sqlite
+            - name: Database__ConnectionString
+              value: Data Source=/app/data/users.db
+            - name: Jwt__ExpirationInMinutes
+              value: "60"
+            - name: SeedData__Admin__Enabled
+              value: "true"
+            - name: SeedData__Admin__Name
+              value: FCG Admin
+            - name: SeedData__Admin__Email
+              value: admin@fcg.local
+            - name: RabbitMq__Password
+              valueFrom:
+                secretKeyRef:
+                  name: fcg-rabbitmq-secret
+                  key: RabbitMq__Password
+            - name: Jwt__SecretKey
+              valueFrom:
+                secretKeyRef:
+                  name: fcg-jwt-secret
+                  key: Jwt__SecretKey
+            - name: SeedData__Admin__Password
+              valueFrom:
+                secretKeyRef:
+                  name: fcg-seed-admin-secret
+                  key: SeedData__Admin__Password
+          volumeMounts:
+            - name: users-data
+              mountPath: /app/data
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 20
+      volumes:
+        - name: users-data
+          persistentVolumeClaim:
+            claimName: users-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-api
+  namespace: fcg
+spec:
+  type: NodePort
+  selector:
+    app: users-api
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      nodePort: 30101

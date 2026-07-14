@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notifications-api
+  namespace: fcg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notifications-api
+  template:
+    metadata:
+      labels:
+        app: notifications-api
+    spec:
+      containers:
+        - name: notifications-api
+          image: compose-notifications-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fcg-common-config
+          env:
+            - name: Service__Name
+              value: NotificationsAPI
+            - name: Notifications__FromEmail
+              value: no-reply@fcg.local
+            - name: RabbitMq__Password
+              valueFrom:
+                secretKeyRef:
+                  name: fcg-rabbitmq-secret
+                  key: RabbitMq__Password
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifications-api
+  namespace: fcg
+spec:
+  type: NodePort
+  selector:
+    app: notifications-api
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      nodePort: 30104

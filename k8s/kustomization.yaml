@@ -1,0 +1,10 @@
+resources:
+  - namespace.yaml
+  - common-configmap.yaml
+  - secrets.yaml
+  - storage.yaml
+  - rabbitmq.yaml
+  - users-api.yaml
+  - catalog-api.yaml
+  - payments-api.yaml
+  - notifications-api.yaml
