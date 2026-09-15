@@ -30,6 +30,8 @@ Escopo implementado ate esta etapa:
 - Redis como cache distribuido para listagem do catalogo
 - Docker Compose atualizado com a stack da Fase 3
 - manifests Kubernetes atualizados com Gateway, observabilidade, MongoDB e Redis
+- Notifications migrada para funcao serverless em projeto .NET separado
+- infraestrutura como codigo da funcao criada com AWS SAM
 - README central atualizado
 - status da Fase 3 documentado
 - testes automatizados de UsersAPI e CatalogAPI executados com sucesso
@@ -43,6 +45,9 @@ https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/READ
 
 Status da Fase 3:
 https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/fase3-status.md
+
+Documentacao da Notifications serverless:
+https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/serverless-notifications.md
 
 Documentacao de arquitetura:
 https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/arquitetura.md
@@ -125,6 +130,7 @@ Antes de enviar, revisar:
 - Redis usado como cache distribuido
 - MongoDB usado como NoSQL
 - Notifications serverless implementada
+- funcao serverless de notificacoes validada por simulacao local
 - Kubernetes demonstrado com pods em estado Running
 - README atualizado
 
@@ -148,6 +154,7 @@ Kubernetes:
 - manifests adicionados para MongoDB
 - manifests adicionados para Redis
 - kustomization atualizado para aplicar toda a stack da Fase 3
+- NotificationsAPI removida do kustomization padrao para evitar container continuo
 
 Fluxo de observabilidade:
 
@@ -166,6 +173,10 @@ Testes automatizados:
 
 - UsersAPI: 29 testes aprovados, 0 falhas
 - CatalogAPI: 37 testes aprovados, 0 falhas
+- NotificationsAPI/Function: 5 testes aprovados, 0 falhas
+- Notifications Function: build executado com sucesso
+- Notifications Function: simulacao local de UserCreatedEvent executada com sucesso
+- Notifications Function: simulacao local de PaymentProcessedEvent executada com sucesso
 
 10. STATUS DA FASE 3
 
@@ -173,7 +184,7 @@ Testes automatizados:
 - Etapa 2 - branches: concluida. Faltante: 0%.
 - Etapa 3 - orquestracao: concluida. Faltante: 0%.
 - Etapa 4 - instrumentacao e performance: concluida. Faltante: 0%.
-- Etapa 5 - Notifications serverless: pendente. Faltante: 100%.
+- Etapa 5 - Notifications serverless: concluida. Faltante: 0%.
 - Etapa 6 - validacao e entrega: pendente. Faltante: 100%.
 
 11. OBSERVACAO FINAL

@@ -173,6 +173,8 @@ services:
         condition: service_healthy
 
   notifications-api:
+    profiles:
+      - legacy-notifications-api
     build:
       context: ../../fcg-notifications-api
       dockerfile: Dockerfile

@@ -61,15 +61,18 @@ Itens pendentes:
 
 ## Etapa 5 - Notifications serverless
 
-Status: pendente.
+Status: concluido.
 
-Faltante: 100%.
+Faltante: 0%.
 
-Itens pendentes:
+Itens cobertos:
 
 - Criar ou separar a funcao serverless de notificacoes.
 - Documentar trigger por mensageria.
 - Versionar infraestrutura como codigo da funcao.
+- Validar build da funcao.
+- Validar simulacao local de `UserCreatedEvent`.
+- Validar simulacao local de `PaymentProcessedEvent`.
 
 ## Etapa 6 - Validacao e entrega
 

@@ -20,7 +20,7 @@ Repositorio de orquestracao do Tech Challenge FIAP Cloud Games.
 | NoSQL | MongoDB para avaliacoes de jogos |
 | Cache distribuido | Redis para cache de consulta do catalogo |
 | Mensageria | RabbitMQ |
-| Serverless | Notifications sera separada na etapa serverless |
+| Serverless | Notifications em funcao serverless acionada por mensagens RabbitMQ |
 
 ## Repositorios relacionados
 
@@ -57,7 +57,7 @@ RELATORIO_ENTREGA_FASE3.txt
 | UsersAPI | `http://localhost:5101` |
 | CatalogAPI | `http://localhost:5102` |
 | PaymentsAPI | `http://localhost:5103` |
-| NotificationsAPI | `http://localhost:5104` |
+| NotificationsAPI legado | `http://localhost:5104` com profile `legacy-notifications-api` |
 | RabbitMQ | `amqp://localhost:5672` |
 | RabbitMQ Management | `http://localhost:15672` |
 | MongoDB | `mongodb://localhost:27017` |
@@ -91,7 +91,6 @@ Validar health checks:
 Invoke-WebRequest http://localhost:5101/health
 Invoke-WebRequest http://localhost:5102/health
 Invoke-WebRequest http://localhost:5103/health
-Invoke-WebRequest http://localhost:5104/health
 ```
 
 Validar metricas:
@@ -141,7 +140,6 @@ kind create cluster --config k8s\kind-config.yaml --name fcg-local
 kind load docker-image compose-users-api:latest --name fcg-local
 kind load docker-image compose-catalog-api:latest --name fcg-local
 kind load docker-image compose-payments-api:latest --name fcg-local
-kind load docker-image compose-notifications-api:latest --name fcg-local
 kubectl apply -k k8s
 ```
 
@@ -162,7 +160,6 @@ URLs via NodePort em ambiente local compativel:
 | UsersAPI | `http://localhost:30101` |
 | CatalogAPI | `http://localhost:30102` |
 | PaymentsAPI | `http://localhost:30103` |
-| NotificationsAPI | `http://localhost:30104` |
 | RabbitMQ AMQP | `amqp://localhost:30672` |
 | RabbitMQ Management | `http://localhost:31672` |
 | Prometheus | `http://localhost:30090` |
@@ -183,6 +180,7 @@ kubectl delete -k k8s
 - Grafana sobe com datasource Prometheus e dashboard inicial.
 - CatalogAPI usa Redis para cache da listagem de jogos.
 - CatalogAPI usa MongoDB para armazenar avaliacoes flexiveis de jogos.
+- Notifications usa funcao serverless no repositorio `fcg-notifications-api`.
 
 ## Status da Fase 3
 
@@ -192,7 +190,7 @@ kubectl delete -k k8s
 | Branch de trabalho | Concluido | 0% |
 | Orquestracao Fase 3 | Concluido | 0% |
 | Instrumentacao Users/Catalog | Concluido | 0% |
-| Notifications serverless | Pendente | 100% |
+| Notifications serverless | Concluido | 0% |
 | Validacao e entrega | Pendente | 100% |
 
 ## Documentacao de entrega
@@ -200,4 +198,5 @@ kubectl delete -k k8s
 - Arquitetura: `docs/arquitetura.md`
 - Eventos: `docs/eventos.md`
 - Status da Fase 3: `docs/fase3-status.md`
+- Notifications serverless: `docs/serverless-notifications.md`
 - Relatorio Fase 3: `RELATORIO_ENTREGA_FASE3.txt`
