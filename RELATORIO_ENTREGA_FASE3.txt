@@ -1,0 +1,181 @@
+RELATORIO DE ENTREGA - TECH CHALLENGE FASE 3
+FIAP CLOUD GAMES (FCG)
+
+Data de referencia: 2026-09-15
+Branch de referencia: codex/fase3-progress
+
+1. NOME DO GRUPO
+
+CMB Angello
+
+2. PARTICIPANTES E USERNAMES NO DISCORD
+
+- Chrystiano Angello Goncalves Mendes - Discord: .chrystiano
+
+3. DESCRICAO RESUMIDA DA ENTREGA
+
+O projeto da Fase 3 evolui a arquitetura de microsservicos da Fase 2 para uma arquitetura mais profissional, com ponto de entrada unico, observabilidade, persistencia poliglota e cache distribuido.
+
+Escopo implementado ate esta etapa:
+
+- API Gateway com Kong
+- rotas versionadas no repositorio de orquestracao
+- validacao JWT no Gateway para rotas protegidas
+- roteamento do Gateway para UsersAPI e CatalogAPI
+- observabilidade com Prometheus e Grafana
+- endpoint /metrics em UsersAPI
+- endpoint /metrics em CatalogAPI
+- dashboard inicial do Grafana
+- MongoDB como banco NoSQL para avaliacoes de jogos
+- Redis como cache distribuido para listagem do catalogo
+- Docker Compose atualizado com a stack da Fase 3
+- manifests Kubernetes atualizados com Gateway, observabilidade, MongoDB e Redis
+- README central atualizado
+- status da Fase 3 documentado
+- testes automatizados de UsersAPI e CatalogAPI executados com sucesso
+- Docker Compose validado com docker compose config
+- manifests Kubernetes validados com kubectl kustomize
+
+4. LINK DA DOCUMENTACAO
+
+README do repositorio de orquestracao:
+https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/README.md
+
+Status da Fase 3:
+https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/fase3-status.md
+
+Documentacao de arquitetura:
+https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/arquitetura.md
+
+Documentacao de eventos:
+https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/eventos.md
+
+5. LINK DO(S) REPOSITORIO(S)
+
+Repositorio principal/documentacao:
+https://github.com/Chrystiano22/Fcg
+
+UsersAPI:
+https://github.com/Chrystiano22/fcg-users-api
+
+CatalogAPI:
+https://github.com/Chrystiano22/fcg-catalog-api
+
+PaymentsAPI:
+https://github.com/Chrystiano22/fcg-payments-api
+
+NotificationsAPI:
+https://github.com/Chrystiano22/fcg-notifications-api
+
+Repositorio de orquestracao:
+https://github.com/Chrystiano22/fcg-orchestration
+
+Branches utilizadas para a Fase 3:
+
+- https://github.com/Chrystiano22/Fcg/tree/codex/fase3-progress
+- https://github.com/Chrystiano22/fcg-users-api/tree/codex/fase3-progress
+- https://github.com/Chrystiano22/fcg-catalog-api/tree/codex/fase3-progress
+- https://github.com/Chrystiano22/fcg-payments-api/tree/codex/fase3-progress
+- https://github.com/Chrystiano22/fcg-notifications-api/tree/codex/fase3-progress
+- https://github.com/Chrystiano22/fcg-orchestration/tree/codex/fase3-progress
+
+6. LINK DO VIDEO
+
+[LINK DO VIDEO DO YOUTUBE AINDA SERA INSERIDO APOS A PUBLICACAO]
+
+7. ARQUIVOS DE APOIO DA ENTREGA
+
+Repositorio de orquestracao:
+C:\Users\Chrys\source\repos\fcg-orchestration
+
+Docker Compose:
+C:\Users\Chrys\source\repos\fcg-orchestration\compose\docker-compose.yml
+
+Configuracao do Kong:
+C:\Users\Chrys\source\repos\fcg-orchestration\compose\kong.yml
+
+Configuracao do Prometheus:
+C:\Users\Chrys\source\repos\fcg-orchestration\compose\prometheus.yml
+
+Manifests Kubernetes:
+C:\Users\Chrys\source\repos\fcg-orchestration\k8s
+
+Status da Fase 3:
+C:\Users\Chrys\source\repos\fcg-orchestration\docs\fase3-status.md
+
+Relatorio de entrega:
+C:\Users\Chrys\source\repos\fcg-orchestration\RELATORIO_ENTREGA_FASE3.txt
+
+8. VALIDACAO FINAL ANTES DA SUBMISSAO
+
+Antes de enviar, revisar:
+
+- nome do grupo preenchido
+- participantes preenchidos
+- usernames do Discord preenchidos
+- link do video inserido apos a publicacao no YouTube
+- links dos repositorios acessiveis
+- links da documentacao acessiveis
+- video com no maximo 20 minutos
+- Gateway Kong roteando chamadas para UsersAPI e CatalogAPI
+- JWT validado no Gateway
+- UsersAPI e CatalogAPI expondo /metrics
+- Prometheus coletando metricas das APIs
+- Grafana exibindo dashboard
+- Redis usado como cache distribuido
+- MongoDB usado como NoSQL
+- Notifications serverless implementada
+- Kubernetes demonstrado com pods em estado Running
+- README atualizado
+
+9. RESUMO DA VALIDACAO TECNICA
+
+Docker Compose:
+
+- comando previsto: docker compose -f compose\docker-compose.yml up --build -d
+- Gateway Kong previsto em http://localhost:8000
+- Kong Admin API previsto em http://localhost:8001
+- Prometheus previsto em http://localhost:9090
+- Grafana previsto em http://localhost:3000
+- MongoDB previsto em mongodb://localhost:27017
+- Redis previsto em localhost:6379
+
+Kubernetes:
+
+- manifests adicionados para Kong
+- manifests adicionados para Prometheus
+- manifests adicionados para Grafana
+- manifests adicionados para MongoDB
+- manifests adicionados para Redis
+- kustomization atualizado para aplicar toda a stack da Fase 3
+
+Fluxo de observabilidade:
+
+- UsersAPI publica metricas em /metrics
+- CatalogAPI publica metricas em /metrics
+- Prometheus coleta metricas das APIs
+- Grafana apresenta dashboard de requisicoes, latencia e erros
+
+Fluxo de persistencia e performance:
+
+- Redis armazena temporariamente a listagem de jogos do CatalogAPI
+- MongoDB armazena avaliacoes flexiveis dos jogos
+- SQLite continua sendo usado para os dados transacionais principais do catalogo
+
+Testes automatizados:
+
+- UsersAPI: 29 testes aprovados, 0 falhas
+- CatalogAPI: 37 testes aprovados, 0 falhas
+
+10. STATUS DA FASE 3
+
+- Etapa 1 - requisitos: concluida. Faltante: 0%.
+- Etapa 2 - branches: concluida. Faltante: 0%.
+- Etapa 3 - orquestracao: concluida. Faltante: 0%.
+- Etapa 4 - instrumentacao e performance: concluida. Faltante: 0%.
+- Etapa 5 - Notifications serverless: pendente. Faltante: 100%.
+- Etapa 6 - validacao e entrega: pendente. Faltante: 100%.
+
+11. OBSERVACAO FINAL
+
+Este arquivo sera atualizado ao final das proximas etapas com a validacao executada e o link final do video.

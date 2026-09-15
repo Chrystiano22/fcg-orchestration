@@ -12,3 +12,9 @@ data:
   RabbitMq__Username: guest
   Jwt__Issuer: fcg-users-api
   Jwt__Audience: fcg-services
+  Redis__ConnectionString: "redis:6379"
+  Redis__InstanceName: "fcg-catalog:"
+  Mongo__Enabled: "true"
+  Mongo__ConnectionString: "mongodb://mongodb:27017"
+  Mongo__DatabaseName: fcg_catalog
+  Mongo__ReviewsCollectionName: game_reviews

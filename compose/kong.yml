@@ -1,0 +1,53 @@
+_format_version: "3.0"
+_transform: true
+
+consumers:
+  - username: fcg-jwt-consumer
+    jwt_secrets:
+      - key: fcg-users-api
+        secret: development-secret-key-change-before-production
+        algorithm: HS256
+
+services:
+  - name: users-api
+    url: http://users-api:8080
+    routes:
+      - name: users-auth-login
+        paths:
+          - /auth
+        strip_path: false
+      - name: users-registration
+        paths:
+          - /usuarios
+        methods:
+          - POST
+        strip_path: false
+      - name: users-protected
+        paths:
+          - /usuarios
+        methods:
+          - GET
+          - PATCH
+        strip_path: false
+        plugins:
+          - name: jwt
+            config:
+              key_claim_name: iss
+              claims_to_verify:
+                - exp
+  - name: catalog-api
+    url: http://catalog-api:8080
+    routes:
+      - name: catalog-protected
+        paths:
+          - /jogos
+          - /compras
+          - /biblioteca
+          - /promocoes
+        strip_path: false
+        plugins:
+          - name: jwt
+            config:
+              key_claim_name: iss
+              claims_to_verify:
+                - exp

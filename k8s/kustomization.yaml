@@ -4,7 +4,12 @@ resources:
   - secrets.yaml
   - storage.yaml
   - rabbitmq.yaml
+  - redis.yaml
+  - mongodb.yaml
   - users-api.yaml
   - catalog-api.yaml
   - payments-api.yaml
   - notifications-api.yaml
+  - kong.yaml
+  - prometheus.yaml
+  - grafana.yaml
