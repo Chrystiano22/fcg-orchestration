@@ -2,7 +2,6 @@ RELATORIO DE ENTREGA - TECH CHALLENGE FASE 3
 FIAP CLOUD GAMES (FCG)
 
 Data de referencia: 2026-09-15
-Branch de referencia: codex/fase3-progress
 
 1. NOME DO GRUPO
 
@@ -33,32 +32,31 @@ Escopo implementado ate esta etapa:
 - Notifications migrada para funcao serverless em projeto .NET separado
 - infraestrutura como codigo da funcao criada com AWS SAM
 - README central atualizado
-- status da Fase 3 documentado
 - testes automatizados de UsersAPI e CatalogAPI executados com sucesso
 - Docker Compose validado com docker compose config
 - manifests Kubernetes validados com kubectl kustomize
 - ambiente completo subido e validado com Docker Compose
 - Gateway Kong validado com login JWT e rotas protegidas
 - fluxo de compra validado com RabbitMQ e processamento assicrono
-- Redis e MongoDB validados em execucao local
+- Redis e MongoDB validados no ambiente de execucao
 - Prometheus validado coletando metricas de UsersAPI e CatalogAPI
 
 4. LINK DA DOCUMENTACAO
 
 README do repositorio de orquestracao:
-https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/README.md
+https://github.com/Chrystiano22/fcg-orchestration
 
-Status da Fase 3:
-https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/fase3-status.md
+Documentacao da Fase 3:
+Diretorio docs/ do repositorio de orquestracao
 
 Documentacao da Notifications serverless:
-https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/serverless-notifications.md
+docs/serverless-notifications.md
 
 Documentacao de arquitetura:
-https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/arquitetura.md
+docs/arquitetura.md
 
 Documentacao de eventos:
-https://github.com/Chrystiano22/fcg-orchestration/blob/codex/fase3-progress/docs/eventos.md
+docs/eventos.md
 
 5. LINK DO(S) REPOSITORIO(S)
 
@@ -80,66 +78,20 @@ https://github.com/Chrystiano22/fcg-notifications-api
 Repositorio de orquestracao:
 https://github.com/Chrystiano22/fcg-orchestration
 
-Branches utilizadas para a Fase 3:
-
-- https://github.com/Chrystiano22/Fcg/tree/codex/fase3-progress
-- https://github.com/Chrystiano22/fcg-users-api/tree/codex/fase3-progress
-- https://github.com/Chrystiano22/fcg-catalog-api/tree/codex/fase3-progress
-- https://github.com/Chrystiano22/fcg-payments-api/tree/codex/fase3-progress
-- https://github.com/Chrystiano22/fcg-notifications-api/tree/codex/fase3-progress
-- https://github.com/Chrystiano22/fcg-orchestration/tree/codex/fase3-progress
-
 6. LINK DO VIDEO
 
-[LINK DO VIDEO DO YOUTUBE AINDA SERA INSERIDO APOS A PUBLICACAO]
+Link informado na plataforma de entrega.
 
 7. ARQUIVOS DE APOIO DA ENTREGA
 
-Repositorio de orquestracao:
-C:\Users\Chrys\source\repos\fcg-orchestration
+- Docker Compose: compose/docker-compose.yml
+- Configuracao do Kong: compose/kong.yml
+- Configuracao do Prometheus: compose/prometheus.yml
+- Manifests Kubernetes: k8s/
+- Documentacao complementar: docs/
+- Relatorio de entrega: RELATORIO_ENTREGA_FASE3.txt
 
-Docker Compose:
-C:\Users\Chrys\source\repos\fcg-orchestration\compose\docker-compose.yml
-
-Configuracao do Kong:
-C:\Users\Chrys\source\repos\fcg-orchestration\compose\kong.yml
-
-Configuracao do Prometheus:
-C:\Users\Chrys\source\repos\fcg-orchestration\compose\prometheus.yml
-
-Manifests Kubernetes:
-C:\Users\Chrys\source\repos\fcg-orchestration\k8s
-
-Status da Fase 3:
-C:\Users\Chrys\source\repos\fcg-orchestration\docs\fase3-status.md
-
-Relatorio de entrega:
-C:\Users\Chrys\source\repos\fcg-orchestration\RELATORIO_ENTREGA_FASE3.txt
-
-8. VALIDACAO FINAL ANTES DA SUBMISSAO
-
-Antes de enviar, revisar:
-
-- nome do grupo preenchido: OK
-- participantes preenchidos: OK
-- usernames do Discord preenchidos: OK
-- link do video inserido apos a publicacao no YouTube
-- links dos repositorios acessiveis: OK
-- links da documentacao acessiveis: OK
-- video com no maximo 20 minutos
-- Gateway Kong roteando chamadas para UsersAPI e CatalogAPI: OK
-- JWT validado no Gateway: OK
-- UsersAPI e CatalogAPI expondo /metrics: OK
-- Prometheus coletando metricas das APIs: OK
-- Grafana subindo com datasource e dashboard provisionados: OK
-- Redis usado como cache distribuido: OK
-- MongoDB usado como NoSQL: OK
-- Notifications serverless implementada: OK
-- funcao serverless de notificacoes validada por simulacao local: OK
-- Kubernetes demonstrado com pods em estado Running
-- README atualizado: OK
-
-9. RESUMO DA VALIDACAO TECNICA
+8. RESUMO DA VALIDACAO TECNICA
 
 Docker Compose:
 
@@ -179,7 +131,7 @@ Fluxo de persistencia e performance:
 - Redis armazena temporariamente a listagem de jogos do CatalogAPI
 - MongoDB armazena avaliacoes flexiveis dos jogos
 - SQLite continua sendo usado para os dados transacionais principais do catalogo
-- Avaliacao persistida no MongoDB durante validacao local
+- Avaliacao persistida no MongoDB durante validacao
 - Cache Redis confirmado apos consulta de catalogo
 
 Testes automatizados:
@@ -189,8 +141,8 @@ Testes automatizados:
 - PaymentsAPI: 3 testes aprovados, 0 falhas
 - NotificationsAPI/Function: 5 testes aprovados, 0 falhas
 - Notifications Function: build executado com sucesso
-- Notifications Function: simulacao local de UserCreatedEvent executada com sucesso
-- Notifications Function: simulacao local de PaymentProcessedEvent executada com sucesso
+- Notifications Function: simulacao de UserCreatedEvent executada com sucesso
+- Notifications Function: simulacao de PaymentProcessedEvent executada com sucesso
 
 Fluxos validados via Gateway:
 
@@ -201,16 +153,3 @@ Fluxos validados via Gateway:
 - Criacao de compra em /compras
 - Processamento assicrono da compra pelo RabbitMQ
 - Jogo comprado encontrado na biblioteca do usuario apos processamento
-
-10. STATUS DA FASE 3
-
-- Etapa 1 - requisitos: concluida. Faltante: 0%.
-- Etapa 2 - branches: concluida. Faltante: 0%.
-- Etapa 3 - orquestracao: concluida. Faltante: 0%.
-- Etapa 4 - instrumentacao e performance: concluida. Faltante: 0%.
-- Etapa 5 - Notifications serverless: concluida. Faltante: 0%.
-- Etapa 6 - validacao e entrega: em andamento. Faltante: 20%.
-
-11. OBSERVACAO FINAL
-
-Validacao tecnica concluida em ambiente local. Falta inserir o link final do video e realizar a submissao final.
