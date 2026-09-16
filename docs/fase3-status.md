@@ -36,7 +36,7 @@ Itens cobertos:
 - Provisionamento inicial do Grafana versionado.
 - Manifests Kubernetes adicionados para Kong, Prometheus, Grafana, MongoDB e Redis.
 
-Itens pendentes:
+Validacoes executadas:
 
 - Validacao sintatica do Docker Compose executada.
 - Validacao sintatica dos manifests Kubernetes executada com kustomize.
@@ -54,7 +54,7 @@ Itens cobertos:
 - CatalogAPI usa Redis para cache da listagem de jogos.
 - CatalogAPI usa MongoDB para persistir avaliacoes de jogos.
 
-Itens pendentes:
+Validacoes executadas:
 
 - Testes automatizados da UsersAPI executados com sucesso.
 - Testes automatizados da CatalogAPI executados com sucesso.
@@ -76,14 +76,27 @@ Itens cobertos:
 
 ## Etapa 6 - Validacao e entrega
 
-Status: pendente.
+Status: em andamento.
 
-Faltante: 100%.
+Faltante: 20%.
+
+Itens cobertos:
+
+- Testes automatizados executados nas APIs alteradas.
+- Build da funcao serverless executado com sucesso.
+- Simulacao local da funcao serverless validada.
+- Ambiente completo subido com Docker Compose.
+- Health checks de UsersAPI, CatalogAPI, PaymentsAPI, Kong, Prometheus e Grafana validados.
+- Login via Gateway Kong validado com JWT.
+- Rota protegida de catalogo validada via Gateway Kong.
+- Criacao de jogo validada via Gateway Kong.
+- Avaliacao de jogo persistida no MongoDB.
+- Cache Redis confirmado na listagem de jogos.
+- Targets do Prometheus confirmados como ativos.
+- Fluxo de compra validado com RabbitMQ e processamento assicrono.
+- Relatorio final atualizado com as validacoes tecnicas.
 
 Itens pendentes:
 
-- Rodar testes.
-- Subir ambiente completo.
-- Atualizar relatorio final.
 - Gravar video.
 - Inserir link do video no relatorio.

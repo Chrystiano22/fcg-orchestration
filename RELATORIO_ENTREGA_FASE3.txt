@@ -37,6 +37,11 @@ Escopo implementado ate esta etapa:
 - testes automatizados de UsersAPI e CatalogAPI executados com sucesso
 - Docker Compose validado com docker compose config
 - manifests Kubernetes validados com kubectl kustomize
+- ambiente completo subido e validado com Docker Compose
+- Gateway Kong validado com login JWT e rotas protegidas
+- fluxo de compra validado com RabbitMQ e processamento assicrono
+- Redis e MongoDB validados em execucao local
+- Prometheus validado coletando metricas de UsersAPI e CatalogAPI
 
 4. LINK DA DOCUMENTACAO
 
@@ -115,36 +120,41 @@ C:\Users\Chrys\source\repos\fcg-orchestration\RELATORIO_ENTREGA_FASE3.txt
 
 Antes de enviar, revisar:
 
-- nome do grupo preenchido
-- participantes preenchidos
-- usernames do Discord preenchidos
+- nome do grupo preenchido: OK
+- participantes preenchidos: OK
+- usernames do Discord preenchidos: OK
 - link do video inserido apos a publicacao no YouTube
-- links dos repositorios acessiveis
-- links da documentacao acessiveis
+- links dos repositorios acessiveis: OK
+- links da documentacao acessiveis: OK
 - video com no maximo 20 minutos
-- Gateway Kong roteando chamadas para UsersAPI e CatalogAPI
-- JWT validado no Gateway
-- UsersAPI e CatalogAPI expondo /metrics
-- Prometheus coletando metricas das APIs
-- Grafana exibindo dashboard
-- Redis usado como cache distribuido
-- MongoDB usado como NoSQL
-- Notifications serverless implementada
-- funcao serverless de notificacoes validada por simulacao local
+- Gateway Kong roteando chamadas para UsersAPI e CatalogAPI: OK
+- JWT validado no Gateway: OK
+- UsersAPI e CatalogAPI expondo /metrics: OK
+- Prometheus coletando metricas das APIs: OK
+- Grafana subindo com datasource e dashboard provisionados: OK
+- Redis usado como cache distribuido: OK
+- MongoDB usado como NoSQL: OK
+- Notifications serverless implementada: OK
+- funcao serverless de notificacoes validada por simulacao local: OK
 - Kubernetes demonstrado com pods em estado Running
-- README atualizado
+- README atualizado: OK
 
 9. RESUMO DA VALIDACAO TECNICA
 
 Docker Compose:
 
 - comando previsto: docker compose -f compose\docker-compose.yml up --build -d
-- Gateway Kong previsto em http://localhost:8000
-- Kong Admin API previsto em http://localhost:8001
-- Prometheus previsto em http://localhost:9090
-- Grafana previsto em http://localhost:3000
-- MongoDB previsto em mongodb://localhost:27017
-- Redis previsto em localhost:6379
+- comando executado com sucesso: docker compose -f compose\docker-compose.yml up --build -d
+- Gateway Kong validado em http://localhost:8000
+- Kong Admin API validado em http://localhost:8001
+- UsersAPI validada em http://localhost:5101/health
+- CatalogAPI validada em http://localhost:5102/health
+- PaymentsAPI validada em http://localhost:5103/health
+- Prometheus validado em http://localhost:9090/-/ready
+- Grafana validado em http://localhost:3000/api/health
+- MongoDB validado com gravacao de avaliacao de jogo
+- Redis validado com chave de cache fcg-catalog:catalog:games:list
+- RabbitMQ validado com filas payments-order-placed e catalog-payment-processed sem mensagens pendentes
 
 Kubernetes:
 
@@ -162,21 +172,35 @@ Fluxo de observabilidade:
 - CatalogAPI publica metricas em /metrics
 - Prometheus coleta metricas das APIs
 - Grafana apresenta dashboard de requisicoes, latencia e erros
+- Targets users-api:8080 e catalog-api:8080 confirmados como up no Prometheus
 
 Fluxo de persistencia e performance:
 
 - Redis armazena temporariamente a listagem de jogos do CatalogAPI
 - MongoDB armazena avaliacoes flexiveis dos jogos
 - SQLite continua sendo usado para os dados transacionais principais do catalogo
+- Avaliacao persistida no MongoDB durante validacao local
+- Cache Redis confirmado apos consulta de catalogo
 
 Testes automatizados:
 
 - UsersAPI: 29 testes aprovados, 0 falhas
 - CatalogAPI: 37 testes aprovados, 0 falhas
+- PaymentsAPI: 3 testes aprovados, 0 falhas
 - NotificationsAPI/Function: 5 testes aprovados, 0 falhas
 - Notifications Function: build executado com sucesso
 - Notifications Function: simulacao local de UserCreatedEvent executada com sucesso
 - Notifications Function: simulacao local de PaymentProcessedEvent executada com sucesso
+
+Fluxos validados via Gateway:
+
+- Login em /auth/login com usuario admin@fcg.local
+- Acesso protegido a /jogos com token JWT
+- Criacao de jogo pelo CatalogAPI via Gateway
+- Criacao de avaliacao do jogo com persistencia no MongoDB
+- Criacao de compra em /compras
+- Processamento assicrono da compra pelo RabbitMQ
+- Jogo comprado encontrado na biblioteca do usuario apos processamento
 
 10. STATUS DA FASE 3
 
@@ -185,8 +209,8 @@ Testes automatizados:
 - Etapa 3 - orquestracao: concluida. Faltante: 0%.
 - Etapa 4 - instrumentacao e performance: concluida. Faltante: 0%.
 - Etapa 5 - Notifications serverless: concluida. Faltante: 0%.
-- Etapa 6 - validacao e entrega: pendente. Faltante: 100%.
+- Etapa 6 - validacao e entrega: em andamento. Faltante: 20%.
 
 11. OBSERVACAO FINAL
 
-Este arquivo sera atualizado ao final das proximas etapas com a validacao executada e o link final do video.
+Validacao tecnica concluida em ambiente local. Falta inserir o link final do video e realizar a submissao final.

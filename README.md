@@ -191,7 +191,7 @@ kubectl delete -k k8s
 | Orquestracao Fase 3 | Concluido | 0% |
 | Instrumentacao Users/Catalog | Concluido | 0% |
 | Notifications serverless | Concluido | 0% |
-| Validacao e entrega | Pendente | 100% |
+| Validacao e entrega | Em andamento | 20% |
 
 ## Documentacao de entrega
 
